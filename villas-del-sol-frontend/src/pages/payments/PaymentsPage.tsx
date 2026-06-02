@@ -13,6 +13,8 @@ import InvoiceStats from "../../components/payments/InvoiceStats";
 import InvoiceFilters from "../../components/payments/InvoiceFilters";
 import InvoiceDetailsDrawer from "../../components/payments/InvoiceDetailsDrawer";
 import InvoiceFormDrawer from "../../components/payments/InvoiceFormDrawer";
+import InvoiceEditDrawer from "../../components/payments/InvoiceEditDrawer";
+import InvoicePrintPreview from "../../components/payments/InvoicePrintPreview";
 
 import ReceiptTable from "../../components/payments/ReceiptTable";
 
@@ -83,6 +85,12 @@ export default function PaymentsPage() {
     setInvoiceFormOpen,
   ] = useState(false);
 
+  const [invoiceEditOpen, setInvoiceEditOpen] =
+    useState(false);
+
+  const [invoicePrintOpen, setInvoicePrintOpen] =
+    useState(false);
+
   const filteredPayments =
     useMemo(() => {
       return mockPayments.filter(
@@ -117,6 +125,20 @@ export default function PaymentsPage() {
   ) => {
     setSelectedInvoice(invoice);
     setInvoiceDrawerOpen(true);
+  };
+
+  const handleEditInvoice = (
+    invoice: Invoice
+  ) => {
+    setSelectedInvoice(invoice);
+    setInvoiceEditOpen(true);
+  };
+
+  const handlePrintInvoice = (
+    invoice: Invoice
+  ) => {
+    setSelectedInvoice(invoice);
+    setInvoicePrintOpen(true);
   };
 
   return (
@@ -189,12 +211,10 @@ export default function PaymentsPage() {
             />
 
             <InvoiceTable
-              invoices={
-                filteredInvoices
-              }
-              onView={
-                handleViewInvoice
-              }
+              invoices={filteredInvoices}
+              onView={handleViewInvoice}
+              onEdit={handleEditInvoice}
+              onPrint={handlePrintInvoice}
             />
           </>
         )}
@@ -233,10 +253,9 @@ export default function PaymentsPage() {
 
       <InvoiceDetailsDrawer
         open={invoiceDrawerOpen}
+        invoice={selectedInvoice}
         onClose={() =>
-          setInvoiceDrawerOpen(
-            false
-          )
+          setInvoiceDrawerOpen(false)
         }
       />
 
@@ -246,6 +265,21 @@ export default function PaymentsPage() {
           setInvoiceFormOpen(
             false
           )
+        }
+      />
+      <InvoiceEditDrawer
+        open={invoiceEditOpen}
+        invoice={selectedInvoice}
+        onClose={() =>
+          setInvoiceEditOpen(false)
+        }
+      />
+
+      <InvoicePrintPreview
+        open={invoicePrintOpen}
+        invoice={selectedInvoice}
+        onClose={() =>
+          setInvoicePrintOpen(false)
         }
       />
     </MainLayout>

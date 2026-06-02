@@ -8,11 +8,15 @@ type Invoice = {
 type Props = {
   invoices: Invoice[];
   onView: (invoice: Invoice) => void;
+  onEdit: (invoice: Invoice) => void;
+  onPrint: (invoice: Invoice) => void;
 };
 
 export default function InvoiceTable({
   invoices,
   onView,
+  onEdit,
+  onPrint,
 }: Props) {
   return (
     <div className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
@@ -60,27 +64,38 @@ export default function InvoiceTable({
               </td>
 
               <td className="p-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    invoice.status ===
-                    "Pagada"
-                      ? "bg-green-500/20 text-green-400"
-                      : "bg-yellow-500/20 text-yellow-400"
-                  }`}
-                >
-                  {invoice.status}
-                </span>
+                {invoice.status}
               </td>
 
               <td className="p-4">
-                <button
-                  onClick={() =>
-                    onView(invoice)
-                  }
-                  className="bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-lg font-semibold"
-                >
-                  Ver
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      onView(invoice)
+                    }
+                    className="bg-blue-600 px-3 py-2 rounded-lg"
+                  >
+                    Ver
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      onEdit(invoice)
+                    }
+                    className="bg-amber-500 text-black px-3 py-2 rounded-lg"
+                  >
+                    Editar
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      onPrint(invoice)
+                    }
+                    className="bg-green-600 px-3 py-2 rounded-lg"
+                  >
+                    Imprimir
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

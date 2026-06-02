@@ -1,13 +1,22 @@
+type Invoice = {
+  number: string;
+  resident: string;
+  amount: string;
+  status: string;
+};
+
 type Props = {
   open: boolean;
+  invoice: Invoice | null;
   onClose: () => void;
 };
 
 export default function InvoiceDetailsDrawer({
   open,
+  invoice,
   onClose,
 }: Props) {
-  if (!open) return null;
+  if (!open || !invoice) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -17,53 +26,94 @@ export default function InvoiceDetailsDrawer({
       />
 
       <div className="relative w-full max-w-xl bg-slate-900 border-l border-slate-700 p-6 overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold">
-            Factura FAC-0001
+            {invoice.number}
           </h2>
 
           <button
             onClick={onClose}
-            className="text-slate-400"
+            className="text-slate-400 hover:text-white"
           >
             ✕
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div>
-            <strong>Residente:</strong>
-            <p>Carlos Mendoza</p>
+            <p className="text-slate-400 text-sm">
+              Residente
+            </p>
+
+            <p className="font-semibold">
+              {invoice.resident}
+            </p>
           </div>
 
           <div>
-            <strong>Propiedad:</strong>
-            <p>Casa A-12</p>
+            <p className="text-slate-400 text-sm">
+              Propiedad
+            </p>
+
+            <p className="font-semibold">
+              Casa A-12
+            </p>
           </div>
 
           <div>
-            <strong>Concepto:</strong>
-            <p>Cuota de mantenimiento</p>
+            <p className="text-slate-400 text-sm">
+              Concepto
+            </p>
+
+            <p className="font-semibold">
+              Cuota de mantenimiento mensual
+            </p>
           </div>
 
           <div>
-            <strong>Subtotal:</strong>
-            <p>L 4,000</p>
+            <p className="text-slate-400 text-sm">
+              Subtotal
+            </p>
+
+            <p className="font-semibold">
+              L 4,000
+            </p>
           </div>
 
           <div>
-            <strong>Mora:</strong>
-            <p>L 500</p>
+            <p className="text-slate-400 text-sm">
+              Mora
+            </p>
+
+            <p className="font-semibold text-red-400">
+              L 500
+            </p>
           </div>
 
           <div>
-            <strong>Total:</strong>
-            <p>L 4,500</p>
+            <p className="text-slate-400 text-sm">
+              Total
+            </p>
+
+            <p className="text-2xl font-bold text-amber-400">
+              {invoice.amount}
+            </p>
           </div>
 
           <div>
-            <strong>Estado:</strong>
-            <p>Pendiente</p>
+            <p className="text-slate-400 text-sm">
+              Estado
+            </p>
+
+            <p
+              className={`font-semibold ${
+                invoice.status === "Pagada"
+                  ? "text-green-400"
+                  : "text-yellow-400"
+              }`}
+            >
+              {invoice.status}
+            </p>
           </div>
         </div>
       </div>

@@ -1,10 +1,16 @@
 import {
   FaBell,
+  FaMoon,
   FaSearch,
+  FaSun,
   FaUserCircle,
 } from "react-icons/fa";
 
+import { useTheme } from "../../contexts/ThemeContext";
+
 export default function Topbar() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="h-20 border-b border-slate-800 bg-slate-950 flex items-center justify-between px-8">
       <div>
@@ -27,6 +33,14 @@ export default function Topbar() {
             className="bg-slate-900 border border-slate-700 rounded-xl h-12 w-96 pl-12 pr-4 text-sm outline-none focus:border-amber-400"
           />
         </div>
+
+        <button
+          onClick={toggleTheme}
+          className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center hover:border-amber-400 transition text-amber-400"
+          title={theme === "dark" ? "Modo claro" : "Modo oscuro"}
+        >
+          {theme === "dark" ? <FaSun /> : <FaMoon />}
+        </button>
 
         <button className="relative w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center hover:border-amber-400 transition">
           <FaBell />

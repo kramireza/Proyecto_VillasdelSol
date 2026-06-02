@@ -1,15 +1,129 @@
 @import "tailwindcss";
 
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --bg-hover-muted: rgba(51, 65, 85, 0.4);
+  --bg-input: #0f172a;
+  --bg-amber-subtle: rgba(245, 158, 11, 0.2);
+  --bg-blue-subtle: rgba(59, 130, 246, 0.2);
+  --bg-green-subtle: rgba(34, 197, 94, 0.2);
+  --bg-green-solid: #16a34a;
+  --bg-green-hover: #15803d;
+  --bg-red-subtle: rgba(239, 68, 68, 0.2);
+  --bg-red-solid: #ef4444;
+  --bg-yellow-subtle: rgba(234, 179, 8, 0.2);
+  --bg-yellow-light: rgba(234, 179, 8, 0.1);
+  --border: #334155;
+  --border-light: #475569;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-icon: #64748b;
+  --text-accent: #fbbf24;
+  --text-red: #f87171;
+  --text-green: #4ade80;
+  --text-blue: #60a5fa;
+  --text-yellow: #facc15;
+  --text-yellow-bright: #fde047;
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+}
+
+html.light {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: #f8fafc;
+  --bg-hover: #e2e8f0;
+  --bg-hover-muted: rgba(226, 232, 240, 0.6);
+  --bg-input: #ffffff;
+  --bg-amber-subtle: rgba(245, 158, 11, 0.15);
+  --bg-blue-subtle: rgba(59, 130, 246, 0.1);
+  --bg-green-subtle: rgba(34, 197, 94, 0.1);
+  --bg-green-solid: #16a34a;
+  --bg-green-hover: #15803d;
+  --bg-red-subtle: rgba(239, 68, 68, 0.1);
+  --bg-red-solid: #ef4444;
+  --bg-yellow-subtle: rgba(234, 179, 8, 0.15);
+  --bg-yellow-light: rgba(234, 179, 8, 0.08);
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-icon: #94a3b8;
+  --text-accent: #d97706;
+  --text-red: #dc2626;
+  --text-green: #16a34a;
+  --text-blue: #2563eb;
+  --text-yellow: #ca8a04;
+  --text-yellow-bright: #a16207;
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+}
+
 html,
 body,
 #root {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background-color: #0f172a;
+  background-color: var(--bg-primary);
   font-family: Inter, sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
+
+.bg-slate-950 { background-color: var(--bg-primary); }
+.bg-slate-900 { background-color: var(--bg-secondary); }
+.bg-slate-800 { background-color: var(--bg-card); }
+.bg-slate-700 { background-color: var(--border-light); }
+.bg-slate-800\/40 { background-color: var(--bg-hover-muted); }
+.hover\:bg-slate-800:hover { background-color: var(--bg-hover); }
+.hover\:bg-slate-800\/40:hover { background-color: var(--bg-hover-muted); }
+.hover\:bg-slate-700:hover { background-color: var(--text-muted); }
+.hover\:bg-slate-600:hover { background-color: var(--text-secondary); }
+.border-slate-800 { border-color: var(--border); }
+.border-slate-700 { border-color: var(--border-light); }
+.focus\:border-amber-400:focus { border-color: var(--text-accent); }
+.hover\:border-amber-400:hover { border-color: var(--text-accent); }
+.text-white { color: var(--text-primary); }
+.text-slate-300 { color: var(--text-secondary); }
+.text-slate-400 { color: var(--text-muted); }
+.text-slate-500 { color: var(--text-icon); }
+.text-amber-400 { color: var(--text-accent); }
+.text-red-400 { color: var(--text-red); }
+.text-green-400 { color: var(--text-green); }
+.text-blue-400 { color: var(--text-blue); }
+.text-yellow-400 { color: var(--text-yellow); }
+.text-yellow-300 { color: var(--text-yellow-bright); }
+.bg-amber-500 { background-color: var(--accent); }
+.hover\:bg-amber-600:hover { background-color: var(--accent-hover); }
+.hover\:bg-amber-400:hover { background-color: var(--accent-hover); }
+.bg-amber-500\/20 { background-color: var(--bg-amber-subtle); }
+.bg-amber-500\/10 { background-color: var(--bg-amber-subtle); }
+.bg-red-500\/10 { background-color: var(--bg-red-subtle); }
+.bg-green-500\/10 { background-color: var(--bg-green-subtle); }
+.bg-blue-500\/20 { background-color: var(--bg-blue-subtle); }
+.bg-blue-600 { background-color: var(--text-blue); }
+.bg-green-500\/20 { background-color: var(--bg-green-subtle); }
+.bg-green-600 { background-color: var(--bg-green-solid); }
+.hover\:bg-green-700:hover { background-color: var(--bg-green-hover); }
+.bg-red-500 { background-color: var(--bg-red-solid); }
+.bg-red-500\/20 { background-color: var(--bg-red-subtle); }
+.bg-red-600 { background-color: var(--danger); }
+.hover\:bg-red-700:hover { background-color: var(--danger-hover); }
+.bg-yellow-500\/20 { background-color: var(--bg-yellow-subtle); }
+.bg-yellow-500\/10 { background-color: var(--bg-yellow-light); }
+.border-amber-500 { border-color: var(--accent); }
+.border-green-500 { border-color: var(--bg-green-solid); }
+.border-red-500 { border-color: var(--danger); }
+.border-yellow-600 { border-color: var(--text-yellow); }

@@ -2,7 +2,7 @@
 
 ## 2026-06-02 — Modo oscuro/claro
 
-**Inicio:** 17:30 CST — **Fin:** 17:57 CST
+**Inicio:** 4:30 CST — **Fin:** 5:57 CST
 
 - Agregado `ThemeContext` con persistencia en `localStorage` y botón de alternancia (FaSun/FaMoon) en el `Topbar`.
 - Implementado sistema de CSS variables sobre clases de Tailwind para cambiar entre tema oscuro (por defecto) y claro sin modificar componentes individuales.

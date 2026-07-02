@@ -23,6 +23,9 @@ import AccountStatementDrawer from "../../components/payments/AccountStatementDr
 import FinancialHistoryTable from "../../components/payments/FinancialHistoryTable";
 
 import { mockPayments } from "../../utils/mockPayments";
+import { mockInvoices } from "../../utils/mockInvoices";
+
+import type { Invoice } from "../../types";
 
 type Tab =
   | "dashboard"
@@ -31,34 +34,6 @@ type Tab =
   | "receipts"
   | "statement"
   | "history";
-
-type Invoice = {
-  number: string;
-  resident: string;
-  amount: string;
-  status: string;
-};
-
-const mockInvoices: Invoice[] = [
-  {
-    number: "FAC-0001",
-    resident: "Carlos Mendoza",
-    amount: "L 4,500",
-    status: "Pendiente",
-  },
-  {
-    number: "FAC-0002",
-    resident: "Ana Flores",
-    amount: "L 3,200",
-    status: "Pagada",
-  },
-  {
-    number: "FAC-0003",
-    resident: "José Martínez",
-    amount: "L 5,100",
-    status: "Pendiente",
-  },
-];
 
 export default function PaymentsPage() {
   const [activeTab, setActiveTab] =

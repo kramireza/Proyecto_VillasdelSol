@@ -1,0 +1,40 @@
+import type { Invoice } from "../types/financial";
+
+export const mockInvoices: Invoice[] = [
+  {
+    id: 1,
+    number: "FAC-0001",
+    resident: "Carlos Mendoza",
+    property: "Casa A-12",
+    concept: "Cuota de mantenimiento",
+    subtotal: "L 4,000",
+    surcharge: "L 500",
+    total: "L 4,500",
+    amount: "L 4,500",
+    status: "Pendiente",
+  },
+  {
+    id: 2,
+    number: "FAC-0002",
+    resident: "Ana Flores",
+    property: "Casa B-08",
+    concept: "Cuota de mantenimiento",
+    subtotal: "L 3,200",
+    surcharge: "L 0",
+    total: "L 3,200",
+    amount: "L 3,200",
+    status: "Pagada",
+  },
+  {
+    id: 3,
+    number: "FAC-0003",
+    resident: "José Martínez",
+    property: "Casa C-15",
+    concept: "Cuota de mantenimiento",
+    subtotal: "L 5,000",
+    surcharge: "L 100",
+    total: "L 5,100",
+    amount: "L 5,100",
+    status: "Pendiente",
+  },
+];

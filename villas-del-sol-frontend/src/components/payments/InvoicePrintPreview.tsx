@@ -1,9 +1,4 @@
-type Invoice = {
-  number: string;
-  resident: string;
-  amount: string;
-  status: string;
-};
+import type { Invoice } from "../../types";
 
 type Props = {
   open: boolean;

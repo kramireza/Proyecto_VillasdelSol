@@ -20,12 +20,3 @@ export interface Receipt {
   paymentMethod: string;
   paymentDate: string;
 }
-
-export interface Payment {
-  id: number;
-  residentName: string;
-  amount: string;
-  method: string;
-  date: string;
-  status: string;
-}

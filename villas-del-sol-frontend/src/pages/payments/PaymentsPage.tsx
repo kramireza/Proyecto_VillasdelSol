@@ -7,6 +7,8 @@ import PaymentsFilters from "../../components/payments/PaymentsFilters";
 import PaymentsTable from "../../components/payments/PaymentsTable";
 
 import FinancialDashboard from "../../components/payments/FinancialDashboard";
+import DashboardTab from "../../components/payments/tabs/DashboardTab";
+import PaymentsTab from "../../components/payments/tabs/PaymentsTab";
 
 import InvoiceTable from "../../components/payments/InvoiceTable";
 import InvoiceStats from "../../components/payments/InvoiceStats";
@@ -158,7 +160,7 @@ export default function PaymentsPage() {
         </div>
 
         {activeTab === "dashboard" && (
-          <FinancialDashboard />
+          <DashboardTab />
         )}
 
         {activeTab === "invoices" && (
@@ -195,22 +197,11 @@ export default function PaymentsPage() {
         )}
 
         {activeTab === "payments" && (
-          <>
-            <PaymentsStats />
-
-            <PaymentsFilters
-              search={search}
-              onSearchChange={
-                setSearch
-              }
-            />
-
-            <PaymentsTable
-              payments={
-                filteredPayments
-              }
-            />
-          </>
+          <PaymentsTab
+            search={search}
+            payments={filteredPayments}
+            onSearchChange={setSearch}
+          />
         )}
 
         {activeTab === "receipts" && (

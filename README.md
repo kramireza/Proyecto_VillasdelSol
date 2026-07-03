@@ -9,4 +9,9 @@
 - Corregido error `ENOENT` al ejecutar `npm run dev` y re-instaladas dependencias desde cero.
 - Agregado `node_modules/` al `.gitignore` raíz y removido del tracking de git.
 - Corregido autor del commit a `castillojavier2017@gmail.com`.
+<<<<<<< HEAD
 --Inicio: 11:34pm Kevin**
+=======
+
+--Inicio: 11:34pm Kevin**
+>>>>>>> 6d81e6bbac17539ba8597a35f5d30f69b13e71f6

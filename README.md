@@ -10,7 +10,6 @@
 - Agregado `node_modules/` al `.gitignore` raíz y removido del tracking de git.
 - Corregido autor del commit a `castillojavier2017@gmail.com`.
 
---Inicio: 11:34pm Kevin**
-
-
---Inicio: 11:34pm Kevin**
+--Inicio: 11:34am Kevin**
+-Inicio de refactorizacion del frontend
+--Final: 1:34pm Kevin**

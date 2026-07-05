@@ -8,16 +8,16 @@ import InvoicesTab from "../../components/payments/tabs/InvoicesTab";
 import ReceiptsTab from "../../components/payments/tabs/ReceiptTab";
 import StatementTab from "../../components/payments/tabs/StatementTab";
 
-import { mockAccountStatement } from "../../utils/mockAccountStatement";
-
-import type { AccountStatementRow } from "../../types";
+import type {
+  Receipt,
+  Invoice,
+  AccountStatementRow,
+} from "../../types";
 
 import ReceiptDetailsDrawer from "../../components/payments/ReceiptDetailsDrawer";
 import ReceiptPrintPreview from "../../components/payments/ReceiptPrintPreview";
 
 import { mockReceipts } from "../../utils/mockReceipts";
-
-import type { Receipt } from "../../types";
 
 import InvoiceDetailsDrawer from "../../components/payments/InvoiceDetailsDrawer";
 import InvoiceFormDrawer from "../../components/payments/InvoiceFormDrawer";
@@ -28,8 +28,7 @@ import FinancialHistoryTable from "../../components/payments/FinancialHistoryTab
 
 import { mockPayments } from "../../utils/mockPayments";
 import { mockInvoices } from "../../utils/mockInvoices";
-
-import type { Invoice } from "../../types";
+import { mockAccountStatement } from "../../utils/mockAccountStatement";
 
 type Tab =
   | "dashboard"
@@ -194,6 +193,22 @@ export default function PaymentsPage() {
     setReceiptPrintOpen(true);
   };
 
+  const handleViewStatementInvoice = (
+    row: AccountStatementRow
+  ) => {
+    const invoice =
+      mockInvoices.find(
+        (item) =>
+          item.number === row.document
+      );
+
+    if (!invoice) return;
+
+    setSelectedInvoice(invoice);
+
+    setInvoiceDrawerOpen(true);
+  };
+
   return (
     <MainLayout>
       <div className="space-y-8">
@@ -274,8 +289,15 @@ export default function PaymentsPage() {
         {activeTab === "statement" && (
           <StatementTab
             search={statementSearch}
-            onSearchChange={setStatementSearch}
-            rows={filteredAccountStatement}
+            onSearchChange={
+              setStatementSearch
+            }
+            rows={
+              filteredAccountStatement
+            }
+            onViewInvoice={
+              handleViewStatementInvoice
+            }
           />
         )}
 

@@ -7,6 +7,8 @@ export interface AccountStatementRow {
 
   month: string;
 
+  dueDate: string;
+
   amount: number;
 
   status:

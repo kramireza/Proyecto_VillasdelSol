@@ -1,36 +1,36 @@
-type StatementRow = {
-  id: number;
-  document: string;
-  concept: string;
-  month: string;
-  amount: number;
-  status: "PAID" | "PENDING" | "OVERDUE";
-};
+import type {
+  AccountStatementRow,
+} from "../../types";
 
 type Props = {
-  rows: StatementRow[];
+  rows: AccountStatementRow[];
+
+  onViewInvoice: (
+    row: AccountStatementRow
+  ) => void;
 };
 
 export default function AccountStatementTable({
   rows,
+  onViewInvoice,
 }: Props) {
   const getStatusClass = (
-    status: StatementRow["status"]
+    status: AccountStatementRow["status"]
   ) => {
     switch (status) {
       case "PAID":
-        return "bg-green-600/20 text-green-400";
+        return "bg-green-500/20 text-green-400";
 
       case "PENDING":
-        return "bg-yellow-600/20 text-yellow-400";
+        return "bg-yellow-500/20 text-yellow-400";
 
       case "OVERDUE":
-        return "bg-red-600/20 text-red-400";
+        return "bg-red-500/20 text-red-400";
     }
   };
 
   const getStatusLabel = (
-    status: StatementRow["status"]
+    status: AccountStatementRow["status"]
   ) => {
     switch (status) {
       case "PAID":
@@ -45,7 +45,7 @@ export default function AccountStatementTable({
   };
 
   return (
-    <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
       <table className="w-full">
         <thead className="bg-slate-900">
           <tr>
@@ -62,11 +62,19 @@ export default function AccountStatementTable({
             </th>
 
             <th className="p-4 text-left">
+              Vencimiento
+            </th>
+
+            <th className="p-4 text-left">
               Monto
             </th>
 
             <th className="p-4 text-left">
               Estado
+            </th>
+
+            <th className="p-4 text-left">
+              Acciones
             </th>
           </tr>
         </thead>
@@ -75,7 +83,7 @@ export default function AccountStatementTable({
           {rows.map((row) => (
             <tr
               key={row.id}
-              className="border-t border-slate-700 hover:bg-slate-700/30"
+              className="border-t border-slate-700 hover:bg-slate-700/40"
             >
               <td className="p-4">
                 {row.document}
@@ -87,6 +95,10 @@ export default function AccountStatementTable({
 
               <td className="p-4">
                 {row.month}
+              </td>
+
+              <td className="p-4">
+                {row.dueDate}
               </td>
 
               <td className="p-4">
@@ -109,6 +121,17 @@ export default function AccountStatementTable({
                     row.status
                   )}
                 </span>
+              </td>
+
+              <td className="p-4">
+                <button
+                  onClick={() =>
+                    onViewInvoice(row)
+                  }
+                  className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-lg"
+                >
+                  Ver Factura
+                </button>
               </td>
             </tr>
           ))}

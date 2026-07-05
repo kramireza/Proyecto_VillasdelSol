@@ -15,12 +15,17 @@ type Props = {
   ) => void;
 
   rows: AccountStatementRow[];
+
+  onViewInvoice: (
+    row: AccountStatementRow
+  ) => void;
 };
 
 export default function StatementTab({
   search,
   onSearchChange,
   rows,
+  onViewInvoice,
 }: Props) {
   return (
     <div className="space-y-8">
@@ -35,6 +40,9 @@ export default function StatementTab({
 
       <AccountStatementTable
         rows={rows}
+        onViewInvoice={
+          onViewInvoice
+        }
       />
     </div>
   );

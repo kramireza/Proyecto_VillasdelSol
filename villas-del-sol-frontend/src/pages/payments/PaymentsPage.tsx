@@ -2,25 +2,27 @@ import { useMemo, useState } from "react";
 
 import MainLayout from "../../components/layout/MainLayout";
 
-import PaymentsStats from "../../components/payments/PaymentsStats";
-import PaymentsFilters from "../../components/payments/PaymentsFilters";
-import PaymentsTable from "../../components/payments/PaymentsTable";
-
-import FinancialDashboard from "../../components/payments/FinancialDashboard";
 import DashboardTab from "../../components/payments/tabs/DashboardTab";
 import PaymentsTab from "../../components/payments/tabs/PaymentsTab";
+import InvoicesTab from "../../components/payments/tabs/InvoicesTab";
+import ReceiptsTab from "../../components/payments/tabs/ReceiptTab";
+import StatementTab from "../../components/payments/tabs/StatementTab";
 
-import InvoiceTable from "../../components/payments/InvoiceTable";
-import InvoiceStats from "../../components/payments/InvoiceStats";
-import InvoiceFilters from "../../components/payments/InvoiceFilters";
+import { mockAccountStatement } from "../../utils/mockAccountStatement";
+
+import type { AccountStatementRow } from "../../types";
+
+import ReceiptDetailsDrawer from "../../components/payments/ReceiptDetailsDrawer";
+import ReceiptPrintPreview from "../../components/payments/ReceiptPrintPreview";
+
+import { mockReceipts } from "../../utils/mockReceipts";
+
+import type { Receipt } from "../../types";
+
 import InvoiceDetailsDrawer from "../../components/payments/InvoiceDetailsDrawer";
 import InvoiceFormDrawer from "../../components/payments/InvoiceFormDrawer";
 import InvoiceEditDrawer from "../../components/payments/InvoiceEditDrawer";
 import InvoicePrintPreview from "../../components/payments/InvoicePrintPreview";
-
-import ReceiptTable from "../../components/payments/ReceiptTable";
-
-import AccountStatementDrawer from "../../components/payments/AccountStatementDrawer";
 
 import FinancialHistoryTable from "../../components/payments/FinancialHistoryTable";
 
@@ -68,6 +70,27 @@ export default function PaymentsPage() {
   const [invoicePrintOpen, setInvoicePrintOpen] =
     useState(false);
 
+  const [receiptSearch, setReceiptSearch] =
+    useState("");
+
+  const [
+    selectedReceipt,
+    setSelectedReceipt,
+  ] = useState<Receipt | null>(null);
+
+  const [
+    receiptDrawerOpen,
+    setReceiptDrawerOpen,
+  ] = useState(false);
+
+  const [
+    receiptPrintOpen,
+    setReceiptPrintOpen,
+  ] = useState(false);
+  
+  const [statementSearch, setStatementSearch] =
+    useState("");
+
   const filteredPayments =
     useMemo(() => {
       return mockPayments.filter(
@@ -97,6 +120,45 @@ export default function PaymentsPage() {
       );
     }, [invoiceSearch]);
 
+    const filteredReceipts =
+      useMemo(() => {
+        return mockReceipts.filter(
+          (receipt) =>
+            receipt.resident
+              .toLowerCase()
+              .includes(
+                receiptSearch.toLowerCase()
+              ) ||
+            receipt.number
+              .toLowerCase()
+              .includes(
+                receiptSearch.toLowerCase()
+              )
+        );
+      }, [receiptSearch]);
+
+      const filteredAccountStatement =
+        useMemo(() => {
+          return mockAccountStatement.filter(
+            (row) =>
+              row.document
+                .toLowerCase()
+                .includes(
+                  statementSearch.toLowerCase()
+                ) ||
+              row.concept
+                .toLowerCase()
+                .includes(
+                  statementSearch.toLowerCase()
+                ) ||
+              row.month
+                .toLowerCase()
+                .includes(
+                  statementSearch.toLowerCase()
+                )
+          );
+        }, [statementSearch]);
+
   const handleViewInvoice = (
     invoice: Invoice
   ) => {
@@ -116,6 +178,20 @@ export default function PaymentsPage() {
   ) => {
     setSelectedInvoice(invoice);
     setInvoicePrintOpen(true);
+  };
+
+  const handleViewReceipt = (
+    receipt: Receipt
+  ) => {
+    setSelectedReceipt(receipt);
+    setReceiptDrawerOpen(true);
+  };
+
+  const handlePrintReceipt = (
+    receipt: Receipt
+  ) => {
+    setSelectedReceipt(receipt);
+    setReceiptPrintOpen(true);
   };
 
   return (
@@ -164,36 +240,17 @@ export default function PaymentsPage() {
         )}
 
         {activeTab === "invoices" && (
-          <>
-            <div className="flex justify-end">
-              <button
-                onClick={() =>
-                  setInvoiceFormOpen(
-                    true
-                  )
-                }
-                className="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-6 py-3 rounded-xl"
-              >
-                Nueva Factura
-              </button>
-            </div>
-
-            <InvoiceStats />
-
-            <InvoiceFilters
-              search={invoiceSearch}
-              onSearchChange={
-                setInvoiceSearch
-              }
-            />
-
-            <InvoiceTable
-              invoices={filteredInvoices}
-              onView={handleViewInvoice}
-              onEdit={handleEditInvoice}
-              onPrint={handlePrintInvoice}
-            />
-          </>
+          <InvoicesTab
+            search={invoiceSearch}
+            invoices={filteredInvoices}
+            onSearchChange={setInvoiceSearch}
+            onNewInvoice={() =>
+              setInvoiceFormOpen(true)
+            }
+            onView={handleViewInvoice}
+            onEdit={handleEditInvoice}
+            onPrint={handlePrintInvoice}
+          />
         )}
 
         {activeTab === "payments" && (
@@ -205,11 +262,21 @@ export default function PaymentsPage() {
         )}
 
         {activeTab === "receipts" && (
-          <ReceiptTable />
+          <ReceiptsTab
+            search={receiptSearch}
+            receipts={filteredReceipts}
+            onSearchChange={setReceiptSearch}
+            onView={handleViewReceipt}
+            onPrint={handlePrintReceipt}
+          />
         )}
 
         {activeTab === "statement" && (
-          <AccountStatementDrawer />
+          <StatementTab
+            search={statementSearch}
+            onSearchChange={setStatementSearch}
+            rows={filteredAccountStatement}
+          />
         )}
 
         {activeTab === "history" && (
@@ -246,6 +313,22 @@ export default function PaymentsPage() {
         invoice={selectedInvoice}
         onClose={() =>
           setInvoicePrintOpen(false)
+        }
+      />
+
+      <ReceiptDetailsDrawer
+        open={receiptDrawerOpen}
+        receipt={selectedReceipt}
+        onClose={() =>
+          setReceiptDrawerOpen(false)
+        }
+      />
+
+      <ReceiptPrintPreview
+        open={receiptPrintOpen}
+        receipt={selectedReceipt}
+        onClose={() =>
+          setReceiptPrintOpen(false)
         }
       />
     </MainLayout>

@@ -1,22 +1,31 @@
-import type { Receipt } from "../types/financial";
+import type { Receipt } from "../types";
 
 export const mockReceipts: Receipt[] = [
   {
     id: 1,
-    number: "REC-0001",
-    invoiceNumber: "FAC-0001",
-    resident: "Carlos Mendoza",
-    amount: "L 4,500",
-    paymentMethod: "Transferencia",
-    paymentDate: "2026-06-15",
+    number: "REC-000001",
+    invoiceNumber: "FAC-000001",
+    resident: "Kevin Ramirez",
+    amount: 3500,
+    paymentMethod: "TRANSFER",
+    paymentDate: "2026-05-03",
   },
   {
     id: 2,
-    number: "REC-0002",
-    invoiceNumber: "FAC-0002",
-    resident: "Ana Flores",
-    amount: "L 3,200",
-    paymentMethod: "Efectivo",
-    paymentDate: "2026-06-16",
+    number: "REC-000002",
+    invoiceNumber: "FAC-000002",
+    resident: "Carlos Mendoza",
+    amount: 3500,
+    paymentMethod: "CASH",
+    paymentDate: "2026-05-08",
+  },
+  {
+    id: 3,
+    number: "REC-000003",
+    invoiceNumber: "FAC-000003",
+    resident: "María Flores",
+    amount: 3500,
+    paymentMethod: "TRANSFER",
+    paymentDate: "2026-05-12",
   },
 ];

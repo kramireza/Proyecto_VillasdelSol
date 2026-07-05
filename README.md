@@ -13,3 +13,8 @@
 --Inicio: 11:34am Kevin**
 -Inicio de refactorizacion del frontend
 --Final: 1:34pm Kevin**
+--Inicio 10:29am Kevin**
+--Refactorizacion de Pagos terminada 
+--Pestaña de Recibos
+--Final 11:06am Kevin**
+--Inicio 7:20pm Kevin**

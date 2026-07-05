@@ -13,10 +13,18 @@ export interface Invoice {
 
 export interface Receipt {
   id: number;
+
   number: string;
+
   invoiceNumber: string;
+
   resident: string;
-  amount: string;
-  paymentMethod: string;
+
+  amount: number;
+
+  paymentMethod:
+    | "CASH"
+    | "TRANSFER";
+
   paymentDate: string;
 }

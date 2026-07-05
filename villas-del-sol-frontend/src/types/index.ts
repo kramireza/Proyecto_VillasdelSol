@@ -7,3 +7,4 @@ export * from "./security";
 export * from "./surveillance";
 export * from "./visitor";
 export * from "./accountStatement";
+export * from "./financialHistory";

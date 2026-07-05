@@ -7,11 +7,13 @@ import PaymentsTab from "../../components/payments/tabs/PaymentsTab";
 import InvoicesTab from "../../components/payments/tabs/InvoicesTab";
 import ReceiptsTab from "../../components/payments/tabs/ReceiptTab";
 import StatementTab from "../../components/payments/tabs/StatementTab";
+import HistoryTab from "../../components/payments/tabs/HistoryTab";
 
 import type {
   Receipt,
   Invoice,
   AccountStatementRow,
+  FinancialHistory,
 } from "../../types";
 
 import ReceiptDetailsDrawer from "../../components/payments/ReceiptDetailsDrawer";
@@ -24,11 +26,10 @@ import InvoiceFormDrawer from "../../components/payments/InvoiceFormDrawer";
 import InvoiceEditDrawer from "../../components/payments/InvoiceEditDrawer";
 import InvoicePrintPreview from "../../components/payments/InvoicePrintPreview";
 
-import FinancialHistoryTable from "../../components/payments/FinancialHistoryTable";
-
 import { mockPayments } from "../../utils/mockPayments";
 import { mockInvoices } from "../../utils/mockInvoices";
 import { mockAccountStatement } from "../../utils/mockAccountStatement";
+import { mockFinancialHistory } from "../../utils/mockFinancialHistory";
 
 type Tab =
   | "dashboard"
@@ -88,6 +89,9 @@ export default function PaymentsPage() {
   ] = useState(false);
   
   const [statementSearch, setStatementSearch] =
+    useState("");
+
+  const [historySearch, setHistorySearch] =
     useState("");
 
   const filteredPayments =
@@ -157,6 +161,28 @@ export default function PaymentsPage() {
                 )
           );
         }, [statementSearch]);
+      
+      const filteredHistory =
+        useMemo(() => {
+          return mockFinancialHistory.filter(
+            (item) =>
+              item.resident
+                .toLowerCase()
+                .includes(
+                  historySearch.toLowerCase()
+                ) ||
+              item.description
+                .toLowerCase()
+                .includes(
+                  historySearch.toLowerCase()
+                ) ||
+              item.user
+                .toLowerCase()
+                .includes(
+                  historySearch.toLowerCase()
+                )
+          );
+        }, [historySearch]);
 
   const handleViewInvoice = (
     invoice: Invoice
@@ -302,7 +328,11 @@ export default function PaymentsPage() {
         )}
 
         {activeTab === "history" && (
-          <FinancialHistoryTable />
+          <HistoryTab
+            search={historySearch}
+            history={filteredHistory}
+            onSearchChange={setHistorySearch}
+          />
         )}
       </div>
 

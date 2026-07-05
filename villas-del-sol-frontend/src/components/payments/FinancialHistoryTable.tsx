@@ -1,19 +1,64 @@
-const history = [
-  {
-    date: "2026-05-01",
-    type: "Factura",
-    amount: "L 4,500",
-  },
-  {
-    date: "2026-05-02",
-    type: "Pago",
-    amount: "L 4,500",
-  },
-];
+import type {
+  FinancialHistory,
+} from "../../types";
 
-export default function FinancialHistoryTable() {
+type Props = {
+  history: FinancialHistory[];
+};
+
+export default function FinancialHistoryTable({
+  history,
+}: Props) {
+  const getTypeLabel = (
+    type: FinancialHistory["type"]
+  ) => {
+    switch (type) {
+      case "INVOICE":
+        return "Factura";
+
+      case "PAYMENT":
+        return "Pago";
+
+      case "RECEIPT":
+        return "Recibo";
+
+      case "SURCHARGE":
+        return "Mora";
+
+      case "ADJUSTMENT":
+        return "Ajuste";
+
+      case "CANCELLED":
+        return "Anulada";
+    }
+  };
+
+  const getBadgeClass = (
+    type: FinancialHistory["type"]
+  ) => {
+    switch (type) {
+      case "INVOICE":
+        return "bg-blue-500/20 text-blue-400";
+
+      case "PAYMENT":
+        return "bg-green-500/20 text-green-400";
+
+      case "RECEIPT":
+        return "bg-purple-500/20 text-purple-400";
+
+      case "SURCHARGE":
+        return "bg-red-500/20 text-red-400";
+
+      case "ADJUSTMENT":
+        return "bg-yellow-500/20 text-yellow-400";
+
+      case "CANCELLED":
+        return "bg-slate-500/20 text-slate-300";
+    }
+  };
+
   return (
-    <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
       <table className="w-full">
         <thead className="bg-slate-900">
           <tr>
@@ -22,31 +67,67 @@ export default function FinancialHistoryTable() {
             </th>
 
             <th className="p-4 text-left">
+              Residente
+            </th>
+
+            <th className="p-4 text-left">
               Tipo
+            </th>
+
+            <th className="p-4 text-left">
+              Descripción
             </th>
 
             <th className="p-4 text-left">
               Monto
             </th>
+
+            <th className="p-4 text-left">
+              Usuario
+            </th>
           </tr>
         </thead>
 
         <tbody>
-          {history.map((item, index) => (
+          {history.map((item) => (
             <tr
-              key={index}
-              className="border-t border-slate-700"
+              key={item.id}
+              className="border-t border-slate-700 hover:bg-slate-700/40"
             >
               <td className="p-4">
                 {item.date}
               </td>
 
               <td className="p-4">
-                {item.type}
+                {item.resident}
               </td>
 
               <td className="p-4">
-                {item.amount}
+                <span
+                  className={`px-3 py-1 rounded-full text-sm ${getBadgeClass(
+                    item.type
+                  )}`}
+                >
+                  {getTypeLabel(item.type)}
+                </span>
+              </td>
+
+              <td className="p-4">
+                {item.description}
+              </td>
+
+              <td className="p-4">
+                {item.amount.toLocaleString(
+                  "es-HN",
+                  {
+                    style: "currency",
+                    currency: "HNL",
+                  }
+                )}
+              </td>
+
+              <td className="p-4">
+                {item.user}
               </td>
             </tr>
           ))}

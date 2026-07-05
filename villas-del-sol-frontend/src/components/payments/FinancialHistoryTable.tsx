@@ -1,13 +1,16 @@
-import type {
-  FinancialHistory,
-} from "../../types";
+import type { FinancialHistory } from "../../types";
 
 type Props = {
   history: FinancialHistory[];
+
+  onView: (
+    item: FinancialHistory
+  ) => void;
 };
 
 export default function FinancialHistoryTable({
   history,
+  onView,
 }: Props) {
   const getTypeLabel = (
     type: FinancialHistory["type"]
@@ -85,6 +88,10 @@ export default function FinancialHistoryTable({
             <th className="p-4 text-left">
               Usuario
             </th>
+
+            <th className="p-4 text-left">
+              Acciones
+            </th>
           </tr>
         </thead>
 
@@ -128,6 +135,17 @@ export default function FinancialHistoryTable({
 
               <td className="p-4">
                 {item.user}
+              </td>
+
+              <td className="p-4">
+                <button
+                  onClick={() =>
+                    onView(item)
+                  }
+                  className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-lg"
+                >
+                  Ver
+                </button>
               </td>
             </tr>
           ))}

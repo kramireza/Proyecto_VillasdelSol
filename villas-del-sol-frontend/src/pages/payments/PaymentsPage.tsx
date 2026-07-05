@@ -235,6 +235,44 @@ export default function PaymentsPage() {
     setInvoiceDrawerOpen(true);
   };
 
+  const handleViewHistory = (
+    item: FinancialHistory
+  ) => {
+    if (
+      item.type === "RECEIPT"
+    ) {
+      const receipt =
+        mockReceipts.find(
+          (r) =>
+            r.resident ===
+            item.resident
+        );
+
+      if (!receipt) return;
+
+      setSelectedReceipt(
+        receipt
+      );
+
+      setReceiptDrawerOpen(true);
+
+      return;
+    }
+
+    const invoice =
+      mockInvoices.find(
+        (i) =>
+          i.resident ===
+          item.resident
+      );
+
+    if (!invoice) return;
+
+    setSelectedInvoice(invoice);
+
+    setInvoiceDrawerOpen(true);
+  };
+
   return (
     <MainLayout>
       <div className="space-y-8">
@@ -331,7 +369,12 @@ export default function PaymentsPage() {
           <HistoryTab
             search={historySearch}
             history={filteredHistory}
-            onSearchChange={setHistorySearch}
+            onSearchChange={
+              setHistorySearch
+            }
+            onView={
+              handleViewHistory
+            }
           />
         )}
       </div>

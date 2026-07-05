@@ -14,12 +14,17 @@ type Props = {
   onSearchChange: (
     value: string
   ) => void;
+
+  onView: (
+    item: FinancialHistory
+  ) => void;
 };
 
 export default function HistoryTab({
   search,
   history,
   onSearchChange,
+  onView,
 }: Props) {
   return (
     <div className="space-y-8">
@@ -32,6 +37,7 @@ export default function HistoryTab({
 
       <FinancialHistoryTable
         history={history}
+        onView={onView}
       />
     </div>
   );

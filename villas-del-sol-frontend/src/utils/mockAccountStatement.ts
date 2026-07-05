@@ -4,7 +4,7 @@ export const mockAccountStatement: AccountStatementRow[] =
   [
     {
       id: 1,
-      document: "FAC-000001",
+      document: "FAC-0001",
       concept: "Mantenimiento",
       month: "Mayo 2026",
       dueDate: "2026-05-10",
@@ -14,7 +14,7 @@ export const mockAccountStatement: AccountStatementRow[] =
 
     {
       id: 2,
-      document: "FAC-000002",
+      document: "FAC-0002",
       concept: "Mantenimiento",
       month: "Junio 2026",
       dueDate: "2026-06-10",
@@ -24,7 +24,7 @@ export const mockAccountStatement: AccountStatementRow[] =
 
     {
       id: 3,
-      document: "FAC-000003",
+      document: "FAC-0003",
       concept: "Mantenimiento",
       month: "Julio 2026",
       dueDate: "2026-07-10",

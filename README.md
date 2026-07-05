@@ -18,3 +18,5 @@
 --Pestaña de Recibos
 --Final 11:06am Kevin**
 --Inicio 7:20pm Kevin**
+--Completacion de pestañas de Recibos, Estados de Cuenta e Historial financiero en el modulo de Pagos
+--Fin 10:46pm Kevin**
